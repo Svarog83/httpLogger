@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\LogRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: LogRepository::class)]
 #[ORM\Index(name: 'ipIndex', columns: ['ip'])]

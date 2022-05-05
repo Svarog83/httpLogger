@@ -27,12 +27,22 @@ class LogRepository extends ServiceEntityRepository
 		$this->maxRowsPerPage = $maxRowsPerPage;
 	}
 
-	public function getLogsPaginator(int $offset): Paginator {
-		$query = $this->createQueryBuilder( 'l' )
+	/**
+	 * @param int $offset
+	 * @param ?int $filterByIP
+	 * @return Paginator
+	 */
+	public function getLogsPaginator(int $offset, ?int $filterByIP = 0): Paginator {
+		$qb = $this->createQueryBuilder( 'l' )
 					  ->orderBy( 'l.id', 'DESC' )
 					  ->setMaxResults( $this->maxRowsPerPage )
-					  ->setFirstResult( $offset )
-					  ->getQuery();
+					  ->setFirstResult( $offset );
+
+		if ($filterByIP !== null) {
+			$qb->andWhere( 'l.ip = :ip' )->setParameter( 'ip', $filterByIP );
+		}
+
+		$query = $qb->getQuery();
 
 		return new Paginator( $query );
 	}
