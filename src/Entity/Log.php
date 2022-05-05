@@ -17,13 +17,13 @@ class Log
     #[ORM\Column(type: 'string', length: 255)]
     private $url;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'json', nullable: true)]
     private $requestHeaders;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private $requestBody;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'json', nullable: true)]
     private $responseHeaders;
 
     #[ORM\Column(type: 'text', nullable: true)]
@@ -55,12 +55,12 @@ class Log
         return $this;
     }
 
-    public function getRequestHeaders(): ?string
+    public function getRequestHeaders(): ?array
     {
         return $this->requestHeaders;
     }
 
-    public function setRequestHeaders(string $requestHeaders): self
+    public function setRequestHeaders(?array $requestHeaders): self
     {
         $this->requestHeaders = $requestHeaders;
 
@@ -79,12 +79,12 @@ class Log
         return $this;
     }
 
-    public function getResponseHeaders(): ?string
+    public function getResponseHeaders(): ?array
     {
         return $this->responseHeaders;
     }
 
-    public function setResponseHeaders(string $responseHeaders): self
+    public function setResponseHeaders(?array $responseHeaders): self
     {
         $this->responseHeaders = $responseHeaders;
 

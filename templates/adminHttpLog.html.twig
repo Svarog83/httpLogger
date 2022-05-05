@@ -2,18 +2,35 @@
 {% block title %}Http Logger{% endblock %}
 {% block body %}
 	<h2>Logs</h2>
-	<table style="border: 1px solid black;" border="1">
+	<style>
+		.overflow {
+			overflow: auto; max-height: 100px; max-width: 200px;
+		}
+	</style>
+	<table style="border: 1px solid black;" border="1" width="100%">
 		<thead>
 		<tr>
-			<th>ID</th>
-			<th>URL</th>
+			<th width="10%">URL</th>
+			<th width="15%">Request headers</th>
+			<th width="10%">Request body</th>
+			<th width="15%">Response headers</th>
+			<th width="10%">Response body</th>
+			<th width="5%">Response code</th>
+			<th width="5%">IP</th>
+			<th width="15%">Processed at</th>
 		</tr>
 		</thead>
 		<tbody>
 		{% for log in logs %}
 			<tr>
-				<td>{{ log.id }}</td>
-				<td>{{ log.url }}</td>
+				<td style="overflow: auto;">{{ log.url }}</td>
+				<td><div class="overflow">{{ log.requestHeaders|json_encode(constant('JSON_PRETTY_PRINT'))|nl2br }}</div></td>
+				<td><div class="overflow">{{ log.requestBody }}</div></td>
+				<td><div class="overflow">{{ log.responseHeaders|json_encode(constant('JSON_PRETTY_PRINT'))|nl2br }}</div></td>
+				<td><div class="overflow">{{ log.responseBody }}></div></td>
+				<td>{{ log.responseCode }}</td>
+				<td>{{ log.ip|long2ip }}</td>
+				<td>{{ log.processedAt|date("Y-m-d H:i") }}</td>
 			</tr>
 		{% endfor%}
 		</tbody>

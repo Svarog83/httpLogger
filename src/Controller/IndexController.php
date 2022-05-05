@@ -15,7 +15,7 @@ class IndexController extends AbstractController {
 
 	#[Route( '/admin/http-log', name: 'adminHttpLog' )]
 	public function adminHttpLog(LogRepository $logRepository): Response {
-		$logs = $logRepository->findAll();
+		$logs = $logRepository->findBy([], ['id'=>'DESC']);
 
 		return $this->render( 'adminHttpLog.html.twig' , [
 			'logs' => $logs
