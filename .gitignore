@@ -8,3 +8,8 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+/.idea/vcs.xml
+/.idea/
+/yarn.lock
+/public/uploads/
