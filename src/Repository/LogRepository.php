@@ -6,6 +6,7 @@ use App\Entity\Log;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,10 +19,23 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class LogRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+	private int $maxRowsPerPage;
+
+	public function __construct( ManagerRegistry $registry, int $maxRowsPerPage)
     {
         parent::__construct($registry, Log::class);
-    }
+		$this->maxRowsPerPage = $maxRowsPerPage;
+	}
+
+	public function getLogsPaginator(int $offset): Paginator {
+		$query = $this->createQueryBuilder( 'l' )
+					  ->orderBy( 'l.id', 'DESC' )
+					  ->setMaxResults( $this->maxRowsPerPage )
+					  ->setFirstResult( $offset )
+					  ->getQuery();
+
+		return new Paginator( $query );
+	}
 
     /**
      * @throws ORMException

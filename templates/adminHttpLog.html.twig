@@ -35,6 +35,13 @@
 		{% endfor%}
 		</tbody>
 	</table>
+	<br>
+	{% if previous >= 0 %}
+		<a href="{{ path('adminHttpLog', { offset: previous }) }}">Previous</a>
+	{% endif %}
+	{% if next < totalRows %}
+		<a href="{{ path('adminHttpLog', { offset: next	}) }}">Next</a>
+	{% endif %}
 
 	<br>
 	<br>
