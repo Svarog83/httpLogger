@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block title %}Http Logger{% endblock %}
+{% block body %}
+	<h2>Logs</h2>
+	<table style="border: 1px solid black;" border="1">
+		<thead>
+		<tr>
+			<th>ID</th>
+			<th>URL</th>
+		</tr>
+		</thead>
+		<tbody>
+		{% for log in logs %}
+			<tr>
+				<td>{{ log.id }}</td>
+				<td>{{ log.url }}</td>
+			</tr>
+		{% endfor%}
+		</tbody>
+	</table>
+
+	<br>
+	<br>
+	<a href="{{ path('index') }}">Go home</a>
+{% endblock %}

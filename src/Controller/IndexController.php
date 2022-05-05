@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\LogRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,8 +10,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class IndexController extends AbstractController {
 	#[Route( '/', name: 'index' )]
 	public function index(): Response {
-		$this->getParameter( 'kernel.debug' );
+		return $this->render( 'index.html.twig');
+	}
 
-		return $this->render( 'index.html.twig' );
+	#[Route( '/admin/http-log', name: 'adminHttpLog' )]
+	public function adminHttpLog(LogRepository $logRepository): Response {
+		$logs = $logRepository->findAll();
+
+		return $this->render( 'adminHttpLog.html.twig' , [
+			'logs' => $logs
+		]);
 	}
 }
