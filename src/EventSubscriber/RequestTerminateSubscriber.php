@@ -93,7 +93,7 @@ class RequestTerminateSubscriber implements EventSubscriberInterface {
 	}
 
 	/**
-	 * Returns an intger representation of IP
+	 * Returns an integer representation of IP
 	 *
 	 * @return false|int
 	 */
