@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+	<file source-language="en" target-language="ru" datatype="plaintext" original="file.ext">
+		<header>
+			<tool tool-id="symfony" tool-name="Symfony"/>
+		</header>
+		<body>
+			<trans-unit id="LNAVleg" resname="View logs">
+				<source>View logs</source>
+				<target>Просмотр логов</target>
+			</trans-unit>
+			<trans-unit id="LNAVlea" resname="Logs">
+				<source>Logs</source>
+				<target>Логи</target>
+			</trans-unit>
+			<trans-unit id="LNAVleb" resname="Total rows">
+				<source>Total rows</source>
+				<target>Всего строк</target>
+			</trans-unit>
+			<trans-unit id="LNAVlec" resname="Request headers">
+				<source>Request headers</source>
+				<target>Заголовки запроса</target>
+			</trans-unit>
+			<trans-unit id="LNAVled" resname="Request body">
+				<source>Request body</source>
+				<target>Тело запроса</target>
+			</trans-unit>
+			<trans-unit id="LNAVlee" resname="Response headers">
+				<source>Response headers</source>
+				<target>Заголовки ответа</target>
+			</trans-unit>
+			<trans-unit id="LNAVlef" resname="Response body">
+				<source>Response body</source>
+				<target>Тело ответа</target>
+			</trans-unit>
+			<trans-unit id="LNAVlen" resname="Response code">
+				<source>Response code</source>
+				<target>Статус ответа</target>
+			</trans-unit>
+			<trans-unit id="LNAVleh" resname="Ip">
+				<source>Ip</source>
+				<target>Ip</target>
+			</trans-unit>
+			<trans-unit id="LNAVlei" resname="Submit">
+				<source>Submit</source>
+				<target>Отправить</target>
+			</trans-unit>
+			<trans-unit id="LNAVlej" resname="Processed at">
+				<source>Processed at</source>
+				<target>Время и дата</target>
+			</trans-unit>
+			<trans-unit id="LNAVlek" resname="Next">
+				<source>Next</source>
+				<target>Вперед</target>
+			</trans-unit>
+			<trans-unit id="LNAVlel" resname="Go home">
+				<source>Go home</source>
+				<target>Домой</target>
+			</trans-unit>
+			<trans-unit id="LNAVlem" resname="Previous">
+				<source>Previous</source>
+				<target>Назад</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
+

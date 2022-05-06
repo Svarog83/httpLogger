@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}Http Logger{% endblock %}
 {% block body %}
-	<h2>Logs. Total rows: {{ totalRows }}</h2>
+	<h2>{{ 'Logs'|trans }}. {{ 'Total rows'|trans }}: {{ totalRows }}</h2>
 	<style>
 		.overflow {
 			overflow: auto; max-height: 100px; max-width: 200px;
@@ -11,14 +11,14 @@
 		<thead>
 		<tr>
 			<th width="10%">URL</th>
-			<th width="15%">Request headers</th>
-			<th width="10%">Request body</th>
-			<th width="15%">Response headers</th>
-			<th width="10%">Response body</th>
-			<th width="5%">Response code</th>
+			<th width="15%">{{ 'Request headers'|trans }}</th>
+			<th width="10%">{{ 'Request body'|trans }}</th>
+			<th width="15%">{{ 'Response headers'|trans }}</th>
+			<th width="10%">{{ 'Response body'|trans }}</th>
+			<th width="5%">{{ 'Response code'|trans }}</th>
 			<th width="10%">{{ form(log_form) }}
 			</th>
-			<th width="15%">Processed at</th>
+			<th width="15%">{{ 'Processed at'|trans }}</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -38,13 +38,13 @@
 	</table>
 	<br>
 	{% if previous >= 0 %}
-		<a href="{{ path('adminHttpLog', { offset: previous, filterByIP: filterByIP }) }}">Previous</a>
+		<a href="{{ path('adminHttpLog', { offset: previous, filterByIP: filterByIP }) }}">{{ 'Previous'|trans }}</a>
 	{% endif %}
 	{% if next < totalRows %}
-		<a href="{{ path('adminHttpLog', { offset: next, filterByIP: filterByIP }) }}">Next</a>
+		<a href="{{ path('adminHttpLog', { offset: next, filterByIP: filterByIP }) }}">{{ 'Next'|trans }}</a>
 	{% endif %}
 
 	<br>
 	<br>
-	<a href="{{ path('index') }}">Go home</a>
+	<a href="{{ path('index') }}">{{ 'Go home'|trans }}</a>
 {% endblock %}
