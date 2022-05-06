@@ -9,15 +9,19 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\TerminateEvent;
 
 class RequestTerminateSubscriber implements EventSubscriberInterface {
+	private array                  $enableForEnv;
 	private EntityManagerInterface $entityManager;
+	private string                 $env;
 	private string                 $headerKeyToLog;
 	private LoggerInterface        $logger;
-	private TerminateEvent         $event;
+	private TerminateEvent          $event;
 
-	public function __construct( EntityManagerInterface $entityManager, LoggerInterface $logger, string $headerKeyToLog ) {
+	public function __construct( EntityManagerInterface $entityManager, LoggerInterface $logger, string $headerKeyToLog, array $enableForEnv, string $env ) {
 		$this->entityManager  = $entityManager;
 		$this->logger         = $logger;
 		$this->headerKeyToLog = $headerKeyToLog;
+		$this->enableForEnv = $enableForEnv;
+		$this->env = $env;
 	}
 
 	/**
@@ -33,6 +37,10 @@ class RequestTerminateSubscriber implements EventSubscriberInterface {
 			return;
 		}
 
+		if ( !$this->checkIfNeedToLogInCurrentEnv() ) {
+			return;
+		}
+
 		$log = $this->collectLog();
 
 		try {
@@ -42,6 +50,15 @@ class RequestTerminateSubscriber implements EventSubscriberInterface {
 			$this->logger->error( $e->getMessage() );
 			throw $e;
 		}
+	}
+
+	/**
+	 * Determines if the logger should work in the curren environment
+	 *
+	 * @return bool|mixed
+	 */
+	private function checkIfNeedToLogInCurrentEnv() {
+		return in_array($this->env, $this->enableForEnv, TRUE);
 	}
 
 	/**
