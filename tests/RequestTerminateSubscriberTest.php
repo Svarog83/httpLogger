@@ -49,6 +49,29 @@ class RequestTerminateSubscriberTest extends WebTestCase {
 	}
 
 	/**
+	 * Tests that row is added into log if the header_key_to_log is set to 1 in get parameter
+	 *
+	 * @throws \Doctrine\ORM\NoResultException
+	 * @throws \Doctrine\ORM\NonUniqueResultException
+	 * @throws \Psr\Container\ContainerExceptionInterface
+	 * @throws \Psr\Container\NotFoundExceptionInterface
+	 */
+	public function testIndexPageWithSpecialGetParameter(): void {
+		$client          = static::createClient();
+		$numberOfLogRows = self::getContainer()->get( LogRepository::class )->countRows();
+
+		$containerBag   = self::getContainer()->get( ParameterBagInterface::class );
+		$keyToLog = $containerBag->get( 'header_key_to_log' );
+
+		$client->request( 'GET', '/?' . $keyToLog . '=1' );
+
+		$newNumberOfLogRows = self::getContainer()->get( LogRepository::class )->countRows();
+
+		self::assertResponseIsSuccessful();
+		$this->assertEquals( $numberOfLogRows + 1, $newNumberOfLogRows );
+	}
+
+	/**
 	 * Tests that admin/http-log page is working
 	 */
 	public function testHttpLoggerPage(): void {

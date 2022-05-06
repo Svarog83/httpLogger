@@ -50,6 +50,18 @@ class RequestTerminateSubscriber implements EventSubscriberInterface {
 	 * @return bool|mixed
 	 */
 	private function checkIfNeedToLog() {
+		return $this->checkIfNeedToLogInRequestParameters() || $this->checkIfNeedToLogInHeaders();
+	}
+
+	private function checkIfNeedToLogInRequestParameters(): bool {
+		$request = $this->event->getRequest();
+
+		return filter_var( $request->query->get( $this->headerKeyToLog ),
+						   FILTER_VALIDATE_BOOL ) || filter_var( $request->request->get( $this->headerKeyToLog ),
+																 FILTER_VALIDATE_BOOL );
+	}
+
+	private function checkIfNeedToLogInHeaders() {
 		$requestHeaders = $this->event->getRequest()->headers->all();
 		$needToLog      = FALSE;
 		if ( !empty( $requestHeaders[ $this->headerKeyToLog ] ) ) {
