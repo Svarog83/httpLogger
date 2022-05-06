@@ -47,7 +47,18 @@ class LogRepository extends ServiceEntityRepository
 		return new Paginator( $query );
 	}
 
-    /**
+	/**
+	 * Returns number of rows in logs table
+	 *
+	 * @return int|mixed|string
+	 * @throws \Doctrine\ORM\NoResultException
+	 * @throws \Doctrine\ORM\NonUniqueResultException
+	 */
+	public function countRows() {
+		return $this->createQueryBuilder( 'l' )->select( 'count(l.id) as count' )->getQuery()->getSingleScalarResult();
+	}
+
+	/**
      * @throws ORMException
      * @throws OptimisticLockException
      */
