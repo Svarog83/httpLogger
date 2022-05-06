@@ -10,11 +10,13 @@ use Symfony\Component\HttpKernel\Event\TerminateEvent;
 
 class RequestTerminateSubscriber implements EventSubscriberInterface {
 	private EntityManagerInterface $entityManager;
+	private string                 $headerKeyToLog;
 	private LoggerInterface        $logger;
 
-	public function __construct( EntityManagerInterface $entityManager, LoggerInterface $logger ) {
+	public function __construct( EntityManagerInterface $entityManager, LoggerInterface $logger, string $headerKeyToLog ) {
 		$this->entityManager = $entityManager;
 		$this->logger        = $logger;
+		$this->headerKeyToLog = $headerKeyToLog;
 	}
 
 	public function onKernelTerminate( TerminateEvent $event ): void {
@@ -22,12 +24,11 @@ class RequestTerminateSubscriber implements EventSubscriberInterface {
 		$requestHeaders = $request->headers->all();
 
 		$needToLog      = FALSE;
-		$headerKeyToLog = 'request-log';
-		if ( !empty( $requestHeaders[ $headerKeyToLog ] ) ) {
-			if ( is_array( $requestHeaders[ $headerKeyToLog ] ) ) {
-				$needToLog = !empty( $requestHeaders[ $headerKeyToLog ][0] );
+		if ( !empty( $requestHeaders[ $this->headerKeyToLog ] ) ) {
+			if ( is_array( $requestHeaders[ $this->headerKeyToLog ] ) ) {
+				$needToLog = !empty( $requestHeaders[ $this->headerKeyToLog ][0] );
 			} else {
-				$needToLog = filter_var( $requestHeaders[ $headerKeyToLog ], FILTER_VALIDATE_BOOL );
+				$needToLog = filter_var( $requestHeaders[ $this->headerKeyToLog ], FILTER_VALIDATE_BOOL );
 			}
 		}
 
